@@ -64,17 +64,17 @@
 
 # Controller Unity New Input System 
 ## Keyboard
-W - up 
-S - down 
-A - left 
-D - right 
-Space - Jump 
-Q (in air) - Rotation 
-Left E (in air) - Rotation Right 
-Mouse 1 - Lazer Gun Attack / Use Item 
-Mouse - Look Angle Rotation 
-F - Pickup Item 
-Crtl - Crouch
+- W - up 
+- S - down 
+- A - left 
+- D - right 
+- Space - Jump 
+- Q (in air) - Rotation 
+- Left E (in air) - Rotation Right 
+- Mouse 1 - Lazer Gun Attack / Use Item 
+- Mouse - Look Angle Rotation 
+- F - Pickup Item 
+- Crtl - Crouch
 
 # Unresolved Questions
 - Kullanıcının kazanacağı buffların tam olarak nasıl çalışacağı? 
