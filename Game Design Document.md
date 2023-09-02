@@ -38,7 +38,8 @@
 	- Oyunumuz bir uzay gemisinde yaşanan hikaye üzerine kurulu gelecek sürümlerde level atladıkça uzay gemileri ve hikayeler değişiyor böylece oyun bir dizi gibi farklı hikayelere ışık tutma özelliği sağlıyor.
 # UI Design
 
-![[ui_ux_blockout.jpg]]
+![ui_ux_blockout](https://github.com/meteulken/KargaKarga-GameJam/assets/54241620/a5ff7fa5-ec6d-45ee-89b1-50862fec4e0c)
+
 
 # Environment Art
 
@@ -48,7 +49,8 @@
  - Uzay
  - İnsan dondurucu potlar
   
-![[moodboard_1.jpg]]
+![moodboard_1](https://github.com/meteulken/KargaKarga-GameJam/assets/54241620/2ed272fe-3a07-4472-931b-9ac2078ab7cb)
+
 
 ## SFX’s and Musics
 - Kapı açılış sesleri
