@@ -76,6 +76,10 @@
 - F - Pickup Item 
 - Crtl - Crouch
 
+# Map
+![maps](https://github.com/meteulken/KargaKarga-GameJam/assets/54241620/83d53a75-7a0c-424b-b826-df7c71100529)
+
+
 # Unresolved Questions
 - Kullanıcının kazanacağı buffların tam olarak nasıl çalışacağı? 
 - Kazanılan buffların sürekli mi yoksa tek seferlik mi olacağı? 
