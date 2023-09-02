@@ -6,9 +6,10 @@ public class playerMovement : MonoBehaviour
 {
     [Header("Hareket")]
     private float moveSpeed;
+
     public float walkSpeed;
     public float sprintSpeed;
-
+    public float zeroGravitySpeed;
     public float groundDrag;
 
     [Header("Zýplama")]
@@ -34,15 +35,25 @@ public class playerMovement : MonoBehaviour
 
     bool grounded;
     bool roofed;
-
+    public bool zeroGravity;
     bool ifRoofed;
 
     public Transform orientation;
+    public Transform flyOrientation;
+    public Transform feetOrientation;
+    public Transform topOrientation;
+
 
     float horizontalInput;
     float verticalInput;
 
     Vector3 moveDirection;
+
+    Vector3 zeroGravityDownDirection;
+
+    Vector3 zeroGravityMoveDirection;
+
+    Vector3 zeroGravityUpDirection;
 
     Rigidbody rb;
 
@@ -52,7 +63,8 @@ public class playerMovement : MonoBehaviour
         walking,
         sprinting,
         crouching,
-        air
+        air,
+        fly
     }
 
 
@@ -60,9 +72,8 @@ public class playerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
         readyToJump = true;
-
+        zeroGravity = true;
         startYScale = transform.localScale.y;
     }
     private void Update()
@@ -77,7 +88,7 @@ public class playerMovement : MonoBehaviour
         MyInput();
         SpeedControl();
         StateHandler();
-        CrouchPlayer();
+        //CrouchPlayer();
         if (grounded)
             rb.drag = groundDrag;
         else
@@ -95,7 +106,7 @@ public class playerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && grounded && !zeroGravity)
         {
             readyToJump = false;
 
@@ -104,31 +115,40 @@ public class playerMovement : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
-        if (Input.GetKeyDown(crouchKey))
-        {
-            
-            readyToJump = false;
+        if (zeroGravity)
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-
-        }
-
-
-        if (Input.GetKeyUp(crouchKey) && !roofed)
-        {
-            readyToJump = true;
+        
+        else
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-        }
+
+
+
+
+
+
+
+        //if (Input.GetKeyUp(crouchKey) && !roofed)
+        //{
+        //    readyToJump = true;
+        //    transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+        //}
     }
 
     private void StateHandler()
     {
-        if (Input.GetKey(crouchKey))
-        {
-            state = MovementState.crouching;
-            moveSpeed = crouchSpeed;
-        }
 
+        //if(Input.GetKey(crouchKey))
+        //{
+        //    state = MovementState.crouching;
+        //    moveSpeed = crouchSpeed;
+        //}
+
+        if (zeroGravity)
+        {
+            state = MovementState.fly;
+            moveSpeed = zeroGravitySpeed;
+            rb.useGravity = false;
+        }
         else if (grounded && Input.GetKey(sprintKey))
         {
             state = MovementState.sprinting;
@@ -148,12 +168,36 @@ public class playerMovement : MonoBehaviour
     }
     private void MovePlayer()
     {
+
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-       
-        if(grounded)
+
+        zeroGravityMoveDirection = flyOrientation.forward * verticalInput + flyOrientation.right * horizontalInput;
+
+        zeroGravityDownDirection = feetOrientation.forward * verticalInput + flyOrientation.right * horizontalInput;
+
+        zeroGravityUpDirection = topOrientation.forward * verticalInput + flyOrientation.right * horizontalInput;
+
+        if (zeroGravity && Input.GetKeyDown(KeyCode.LeftControl))
+            rb.AddForce(zeroGravityDownDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+
+        else if (zeroGravity && Input.GetKeyDown(KeyCode.Space))
+            rb.AddForce(zeroGravityUpDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+
+        else if (zeroGravity)
+        {
+            rb.AddForce(zeroGravityMoveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            
+            if (zeroGravity && Input.GetKey(KeyCode.LeftControl))
+                rb.AddForce(zeroGravityDownDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+
+            else if (zeroGravity && Input.GetKey(KeyCode.Space))
+                rb.AddForce(zeroGravityUpDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+
+        }
+        else if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-    
-        else if(!grounded)
+
+        else if (!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
     }
@@ -161,29 +205,34 @@ public class playerMovement : MonoBehaviour
 
 
 
-    private void CrouchPlayer()
-    {
+    //private void CrouchPlayer()
+    //{
 
 
-        roofed = Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.2f, whatIsRoof);
+    //    roofed = Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.2f, whatIsRoof);
 
-        if ((state != MovementState.crouching) && !roofed)
-        {
+    //    if ((state != MovementState.crouching) && !roofed)
+    //    {
 
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+    //        transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
 
-        }
+    //    }
 
-    }
+    //}
 
     private void SpeedControl()
     {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        Vector3 flatVel = new Vector3(rb.velocity.x, rb.velocity.y, rb.velocity.z);
 
         if(flatVel.magnitude > moveSpeed)
         {
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+
+            if (zeroGravity)
+                rb.velocity = new Vector3(limitedVel.x, limitedVel.y, limitedVel.z);
+
+            else
+                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
 
