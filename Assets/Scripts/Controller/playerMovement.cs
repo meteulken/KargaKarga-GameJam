@@ -73,7 +73,7 @@ public class playerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
-        zeroGravity = true;
+        zeroGravity = false;
         startYScale = transform.localScale.y;
     }
     private void Update()
