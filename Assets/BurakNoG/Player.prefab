@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 598500477300765304}
   m_Layer: 7
   m_Name: playerObj
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 4016177482878352522}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -383,7 +383,7 @@ MonoBehaviour:
   pickUpRange: 5
   maxThrowForce: 25
   throwForceIncreaseSpeed: 20
-  objectHolder: {fileID: 8932550656382958301}
+  objectHolder: {fileID: 0}
   pickUpLayer:
     serializedVersion: 2
     m_Bits: 256

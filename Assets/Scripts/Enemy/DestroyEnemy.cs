@@ -13,7 +13,7 @@ public class DestroyEnemy : MonoBehaviour
         // Destroy dogs if x position less than left limit
         if (transform.position.x < 5)
         {
-            Destroy(gameObject);
+            Debug.Log("Game Over!");
         }
         // Destroy balls if y position is less than bottomLimit
         //else if (transform.position.y < bottomLimit)
