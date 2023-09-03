@@ -444,7 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cupToMove: {fileID: 963382393}
-  progressBar: {fileID: 1092707472}
+  progressBarScript: {fileID: 0}
 --- !u!1 &971861207
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,7 +818,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -835,6 +835,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressBar: {fileID: 1092707472}
+  decreaseAmount: 5
+  decreaseInterval: 5
+  cupCollisionScript: {fileID: 0}
 --- !u!1 &1304395759
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,13 +937,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1304395759}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.70452994, y: -0, z: -0, w: 0.7096743}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.584, y: 0, z: 0}
 --- !u!1 &1313262269
 GameObject:
   m_ObjectHideFlags: 0
