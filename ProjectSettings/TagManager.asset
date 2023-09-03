@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Mission
   - Axe
+  - Cup
   layers:
   - Default
   - TransparentFX
