@@ -50,22 +50,28 @@ public class ObjectPickupSystem : MonoBehaviour
                 currentObject = hitInfo.collider.gameObject;
                 currentObjectRb = currentObject.GetComponent<Rigidbody>();
 
-                currentObject.transform.parent = objectHolder;
-                currentObject.transform.localPosition = Vector3.zero;
-                currentObject.transform.localEulerAngles = Vector3.zero;
-
-                foreach (Collider collider in currentObject.GetComponents<Collider>())
+                // Rigidbody bileþenini kontrol et
+                if (currentObjectRb != null)
                 {
-                    collider.enabled = false;
-                   
+                    currentObject.transform.parent = objectHolder;
+                    currentObject.transform.localPosition = Vector3.zero;
+                    currentObject.transform.localEulerAngles = Vector3.zero;
+
+                    foreach (Collider collider in currentObject.GetComponents<Collider>())
+                    {
+                        collider.enabled = false;
+                    }
+
+                    currentObjectRb.isKinematic = true;
                 }
-                
-                currentObjectRb.isKinematic = true;
+                else
+                {
+                    // Eðer currentObjectRb null ise, bir hata mesajý göster veya baþka bir iþlem yapabilirsiniz.
+                    Debug.Log("Object has no rigidbody");
+                }
             }
         }
-
     }
-
 
 
     private void Throw()
